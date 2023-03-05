@@ -3,23 +3,32 @@ package shellcommand
 import (
 	"bytes"
 	"fmt"
-	"io"
-	"os"
 	"os/exec"
 )
 
 var stdoutBuf, stderrBuf bytes.Buffer
 
 
-func Ls() {
+func ListDir() {
 	cmd := exec.Command("ls")
+    stdout, err := cmd.Output()
 
-	cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
-	cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
+    if err != nil {
+        fmt.Println(err.Error())
+        return
+    }
 
-	err := cmd.Start()  // Starts command asynchronously
+    fmt.Println(string(stdout))
+}
 
-	if err != nil {
-		fmt.Printf(err.Error())
-	}
+func SystemDiskUsage() {
+	cmd := exec.Command("df", "-h")
+    stdout, err := cmd.Output()
+
+    if err != nil {
+        fmt.Println(err.Error())
+        return
+    }
+
+    fmt.Println(string(stdout))
 }
