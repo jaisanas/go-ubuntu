@@ -10,16 +10,25 @@ import (
 var stdoutBuf, stderrBuf bytes.Buffer
 
 
-func ListDir() {
-	cmd := exec.Command("ls")
+func ListDir() []string {
+	var res []string
+    cmd := exec.Command("ls")
     stdout, err := cmd.Output()
 
     if err != nil {
         fmt.Println(err.Error())
-        return
+        return nil
     }
 
+    // Print the output
     fmt.Println(string(stdout))
+	s := string(stdout)
+	rowString := strings.Split(s, "\n")
+	for i := range rowString {
+		res = append(res, rowString[i])
+	}
+
+	return res
 }
 
 func SystemDiskUsage() map[string]string {
