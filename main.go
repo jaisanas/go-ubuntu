@@ -82,3 +82,20 @@ func SystemDiskUsage() map[string]string {
 
 	return keyValArr[]
 }
+
+func Pwd() *string {
+	
+    cmd := exec.Command("ls")
+    stdout, err := cmd.Output()
+
+    if err != nil {
+        fmt.Println(err.Error())
+        return nil
+    }
+
+    // Print the output
+    fmt.Println(string(stdout))
+
+
+	return string(stdout)
+}
