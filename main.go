@@ -31,7 +31,7 @@ func ListDir() []string {
 	return res
 }
 
-func SystemDiskUsage() map[string]string {
+func SystemDiskUsage() []map[string]string {
 	var keyValArr []map[string]string
 	cmd := exec.Command("df", "-h")
     stdout, err := cmd.Output()
@@ -80,7 +80,7 @@ func SystemDiskUsage() map[string]string {
 		}
 	}
 
-	return keyValArr[]
+	return keyValArr
 }
 
 func Pwd() *string {
