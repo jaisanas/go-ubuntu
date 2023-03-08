@@ -95,7 +95,7 @@ func Pwd() *string {
 
     // Print the output
     fmt.Println(string(stdout))
+	res := string(stdout)
 
-
-	return string(stdout)
+	return &res
 }
