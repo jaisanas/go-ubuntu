@@ -10,14 +10,14 @@ import (
 var stdoutBuf, stderrBuf bytes.Buffer
 
 
-func ListDir() []string {
+func ListDir() (error, []string) {
 	var res []string
     cmd := exec.Command("ls")
     stdout, err := cmd.Output()
 
     if err != nil {
         fmt.Println(err.Error())
-        return nil
+        return err, nil
     }
 
     // Print the output
@@ -28,17 +28,17 @@ func ListDir() []string {
 		res = append(res, rowString[i])
 	}
 
-	return res
+	return nil, res
 }
 
-func SystemDiskUsage() []map[string]string {
+func SystemDiskUsage() (error, []map[string]string) {
 	var keyValArr []map[string]string
 	cmd := exec.Command("df", "-h")
     stdout, err := cmd.Output()
 
     if err != nil {
         fmt.Println(err.Error())
-        return nil
+        return err, nil
     }
 
     fmt.Println(string(stdout))
@@ -80,22 +80,36 @@ func SystemDiskUsage() []map[string]string {
 		}
 	}
 
-	return keyValArr
+	return nil, keyValArr
 }
 
-func Pwd() *string {
+func Pwd() (error, *string) {
 	
     cmd := exec.Command("ls")
     stdout, err := cmd.Output()
 
     if err != nil {
         fmt.Println(err.Error())
-        return nil
+        return err, nil
     }
 
     // Print the output
     fmt.Println(string(stdout))
 	res := string(stdout)
 
-	return &res
+	return nil, &res
+}
+
+func Cp(src string, dest string) (error, *string) {
+	
+    cmd := exec.Command("cp", src, dest)
+    stdout, err := cmd.Output()
+	
+    if err != nil {
+        fmt.Println(err.Error())
+        return err, nil
+    }    
+	res := string(stdout)
+	fmt.Println(stdout);
+	return nil, &res
 }
