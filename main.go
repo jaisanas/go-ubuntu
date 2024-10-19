@@ -85,7 +85,7 @@ func SystemDiskUsage() (error, []map[string]string) {
 
 func Pwd() (error, *string) {
 	
-    cmd := exec.Command("ls")
+    cmd := exec.Command("pwd")
     stdout, err := cmd.Output()
 
     if err != nil {
@@ -111,5 +111,20 @@ func Cp(src string, dest string) (error, *string) {
     }    
 	res := string(stdout)
 	fmt.Println(stdout);
+	return nil, &res
+}
+
+func Cd(dest string) (error, *string) {
+	// Execute 'cd' command followed by 'pwd' to verify the directory change in the same shell process
+	cmd := exec.Command("bash", "-c", fmt.Sprintf("cd %s && pwd", dest))
+
+	// Capture the output
+	output, err := cmd.Output()
+	if err != nil {
+		return err, nil
+	}
+
+	// Return the output as a string
+	res := string(output)
 	return nil, &res
 }
