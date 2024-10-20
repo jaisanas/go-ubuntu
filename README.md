@@ -8,3 +8,4 @@ This library will wrap ubuntu command
 |       SystemDiskUsage()       |             get list of disk usage             |     df -h      |
 |             Pwd()             |            print working directory             |      pwd       |
 | Cp(src string, target string) | copy file/directory from source to destination |       cp       |
+|        Cd(dest string)        |                change directory                |       cd       |
